@@ -1,0 +1,280 @@
+\documentclass[10pt]{article}
+
+\usepackage{geometry} % to adjust margins
+\usepackage{changepage} % to use \adjustwith (better indentation)
+\usepackage{ifthen} % to use conditionals (\ifthenelse)
+\usepackage[dvipsnames]{xcolor} % for many colors
+\usepackage{hyperref} % to include links
+
+\usepackage[
+    indent = 0em,
+    skip = 0em,
+]{parskip} % to adjust paragraph indentation and surrounding whitespace
+
+% page margins
+\geometry{
+    top = 0.5in,
+    bottom = 0.5in,
+    left = 0.5in,
+    right = 0.5in,
+}
+% no page number
+\pagestyle{empty}
+
+\hypersetup{
+    pdftitle = Theodore-Nguyen-Resume,
+    pdfauthor = TheodoreNguyen,
+    urlbordercolor = NavyBlue,
+    % hidelinks % uncomment to show borders around links
+}
+\urlstyle{} % leave blank or use "same"
+
+% LATEX MODAL FONT COMMANDS:
+% --------------------------------------------- %
+% weights --- \mdseries, \bfseries
+% shapes --- \upshape, \itshape, \scshape, \slshape
+% families --- \rmfamily, \sffamily, \ttfamily
+
+% FONTS AND FORMATTING
+% --------------------------------------------- %
+\newcommand{\rTitle}[1]{{\huge\bfseries #1}\\}
+\newcommand{\rPhoneNumber}[3]{(#1)\,#2\,--\,#3}
+\newcommand{\rSectionTitle}[1]{{\Large\scshape #1}}
+\newcommand{\rEntryTitle}[1]{{\bfseries #1}}
+\newcommand{\rEntryDate}[1]{{\mdseries #1}}
+\newcommand{\rEntryCompany}[1]{{\itshape #1}}
+\newcommand{\rEntryLocation}[1]{{\itshape #1}}
+
+% HEADER
+% --------------------------------------------- %
+\newcommand{\rMakeTitle}{
+\begin{center}
+    \rTitle{Theodore Nguyen}
+    \vspace{0.75ex}
+    \rPhoneNumber{714}{603}{9231} \;$\diamond$\; theodore.tp.nguyen@gmail.com \\
+    \url{https://www.linkedin.com/in/theodoretpnguyen/} \\
+    \url{https://github.com/theodoretnguyen}
+    \vspace{0.5ex}
+\end{center}
+}
+
+% ENVIRONMENTS
+% --------------------------------------------- %
+
+% Resume Section
+% #1 : section title
+\newenvironment{rSection}[1]
+{
+    \rSectionTitle{#1}
+    \vspace{0.75ex}
+    \hrule
+    \vspace{0.75ex}
+    \begin{adjustwidth}{0ex}{0ex}
+}
+{
+    \end{adjustwidth}
+    \vspace{0.8ex}
+}
+% EXAMPLE USAGE
+% --------------------------------------------- %
+% \begin{rSection}{SECTION TITLE}
+%     ENTRIES, CONTENT, etc.
+% \end{rSection}
+% --------------------------------------------- %
+
+% Resume Entry with Paragraph Description
+% #1 : entry title
+% #2 : date
+% #3 : company
+% #4 : location
+\newenvironment{rEntryWithParagraph}[4]
+{
+    \begin{adjustwidth}{2ex}{0ex}
+    \rEntryTitle{#1} \hfill \rEntryDate{#2}
+    % if company is provided, print company and location on separate line.
+    % otherwise, only print entry title and/or date.
+    \ifthenelse{\equal{#3}{}}{}{
+        \\ \rEntryCompany{#3} \hfill \rEntryLocation{#4}
+    }
+    \vspace{0.25ex} \\
+}
+{
+    \end{adjustwidth}
+    \vspace{0.5ex}
+}
+% EXAMPLE USAGE
+% --------------------------------------------- %
+% \begin{rEntryWithParagraph}{ENTRY TITLE}
+%     {DATE}
+%     {COMPANY}
+%     {LOCATION}
+%     DESCRIPTION
+% \end{rEntryWithParagraph}
+% --------------------------------------------- %
+
+% Resume Entry with List
+% #1 : entry title
+% #2 : date
+% #3 : company
+% #4 : location
+\newenvironment{rEntryWithList}[4]
+{
+    \begin{adjustwidth}{2ex}{0ex}
+    \rEntryTitle{#1} \hfill \rEntryDate{#2}
+    % if company is provided, print company and location on separate line.
+    % otherwise, only print entry title and/or date.
+    \ifthenelse{\equal{#3}{}}{}{
+        \\ \rEntryCompany{#3} \hfill \rEntryLocation{#4}
+    }
+    \vspace{0.25ex}
+    \begin{list}{$\cdot$}{
+        \leftmargin = 0ex
+        \topsep = 0ex
+        \itemsep = 0ex
+    }
+}
+{
+    \end{list}
+    \end{adjustwidth}
+    \vspace{0.5ex}
+}
+% EXAMPLE USAGE
+% --------------------------------------------- %
+% \begin{rEntryWithList}{ENTRY TITLE}
+%     {DATE}
+%     {COMPANY}
+%     {LOCATION}
+%     \item ITEM
+% \end{rEntryWithList}
+% --------------------------------------------- %
+
+% Resume Skills
+\newenvironment{rSkills}
+{
+    \begin{adjustwidth}{2ex}{0ex}
+    \begin{list}{}{
+        \leftmargin = 0ex
+        \topsep = 0ex
+        \itemsep = 1ex
+    }
+}
+{
+    \end{list}
+    \end{adjustwidth}
+    \vspace{0.5ex}
+}
+% EXAMPLE USAGE
+% --------------------------------------------- %
+% \begin{rEntryWithDescription}{ENTRY TITLE}
+%     DESCRIPTION
+% \end{rEntryWithDescription}
+% --------------------------------------------- %
+
+\begin{document}
+
+\rMakeTitle
+
+% EDUCATION
+% --------------------------------------------- %
+\begin{rSection}{Education}
+    \begin{rEntryWithParagraph}
+        {University of California, Los Angeles (UCLA)}
+        {June 2023}
+        {}
+        {}
+        B.S.\ in Applied Mathematics with a Specialization in Computing \\
+        Overall GPA: 3.903
+    \end{rEntryWithParagraph}
+    \begin{rEntryWithParagraph}
+        {Relevant Coursework}
+        {}
+        {}
+        {}
+        Linear Algebra, Probability and Statistics, Applied Numerical Methods, Mathematical Modeling, Linear and Nonlinear Systems of Differential Equations, Introduction to Machine Learning
+    \end{rEntryWithParagraph}
+\end{rSection}
+
+% SKILLS
+% --------------------------------------------- %
+\begin{rSection}{Technical Skills}
+    \begin{rSkills}
+        \item \rEntryTitle{Programming Languages} -- C++, Python, Java, HTML, CSS, JavaScript, PHP, MATLAB, Lua
+        \item \rEntryTitle{Markup Languages} -- {\LaTeX}, Markdown
+        \item \rEntryTitle{Developer Tools} -- Vim, Git
+    \end{rSkills}
+\end{rSection}
+
+% SPECIALIZATIONS AND COURSE CERTIFICATES
+% --------------------------------------------- %
+\begin{rSection}{Specializations and Course Certificates}
+    \begin{rEntryWithParagraph}
+        {\href{https://www.coursera.org/account/accomplishments/specialization/certificate/A6624TCC8KLB}{Machine Learning Specialization}}
+        {Nov.\ 2022}
+        {Coursera}
+        {}
+        Supervised Machine Learning: Regression and Classification; Advanced Learning Algorithms; Unsupervised Learning, Recommenders, Reinforcement Learning
+    \end{rEntryWithParagraph}
+\end{rSection}
+
+% PROJECTS
+% --------------------------------------------- %
+\begin{rSection}{Projects}
+    \begin{rEntryWithList}
+        {Linear Support Vector Machine (SVM) Math Task}
+        {Aug.\ 2022}
+        {Python}
+        {}
+        \item Designed an interactive Jupyter notebook with documented code snippets and detailed math explanations to showcase step-by-step production of a linear SVM; accelerated mathematical understanding of 40 students
+        \item Developed 11 Python functions, utilizing NumPy and Matplotlib to display clear data visualizations of the SVM model
+    \end{rEntryWithList}
+    \begin{rEntryWithList}
+        {Penguins Species (Supervised Machine Learning Classification)}
+        {June 2021 -- Aug. 2021}
+        {Python}
+        {}
+    \item Collaborated with a team of 3 students weekly to design a penguin species classification system using scikit-learn, NumPy, Matplotlib, and pandas on a 300+ penguin dataset
+    \item Implemented 2-D machine learning models such as multinomial logistic regression, decision trees, and support vector machines to analyze how physical and geographical features impact penguin species classification
+    \end{rEntryWithList}
+\end{rSection}
+
+% PROFESSIONAL EXPERIENCE
+% --------------------------------------------- %
+\begin{rSection}{Professional Experience}
+    \begin{rEntryWithList}
+        {UCLA Academic Advancement Program}
+        {Sep.\ 2021 -- Present}
+        {Computer Programming Peer Learning Facilitator}
+        {Los Angeles, CA}
+        \item Lead four 1.5 hour review sessions per week for 30 peers to ask questions and accelerate their C++ programming skills
+        \item Develop clear and coherent semi-weekly handouts, review worksheets, and presentation slides using Pandoc, Markdown, and {\LaTeX}
+    \end{rEntryWithList}
+    \begin{rEntryWithList}
+        {Juni Learning}
+        {Aug.\ 2020 -- Aug.\ 2022}
+        {Mathematics Instructor}
+        {San Francisco, CA}
+        \item Executed Pre-Algebra, Algebra, and Geometry lesson plans for students ages 8-18, while adapting to student needs and interests
+        \item Communicated with parents on a weekly basis, providing updates on student progress and results from learning assessments in order to foster academic growth
+        \item Maintained records for 8 students, covering multiple courses and skill levels to cater to students' academic understanding of subject material
+    \end{rEntryWithList}
+\end{rSection}
+
+% HONORS AND AWARDS
+% --------------------------------------------- %
+\begin{rSection}{Honors \& Awards}
+    \begin{rEntryWithList}
+        {Dean's Honors List}
+        {2020 -- 2022}
+        {}
+        {}
+        \item Earned 3.75+ GPA for 7 quarters (Winter '20, Spring '20, Fall '20, Winter '21, Spring '21, Winter '22, Spring '22)
+    \end{rEntryWithList}
+\end{rSection}
+
+% LANGUAGES
+% --------------------------------------------- %
+\begin{rSection}{Languages}
+    English (Native), Vietnamese (Limited Working Proficiency)
+\end{rSection}
+
+\end{document}
